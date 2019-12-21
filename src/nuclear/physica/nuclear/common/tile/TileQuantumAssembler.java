@@ -22,7 +22,7 @@ import java.util.List;
 
 public class TileQuantumAssembler extends TileBasePoweredContainer implements IGuiInterface {
 
-	public static final int TICKS_REQUIRED = 120;
+	public static final int TICKS_REQUIRED = 1500;
 	public static final int SLOT_INPUT = 6;
 	public static final int SLOT_OUTPUT = 7;
 	public static final int POWER_USAGE = ElectricityUtilities.convertEnergy(71000, Unit.WATT, Unit.RF);
@@ -111,16 +111,17 @@ public class TileQuantumAssembler extends TileBasePoweredContainer implements IG
 		ItemStack output = getStackInSlot(SLOT_OUTPUT);
 		ItemStack input = getStackInSlot(SLOT_INPUT);
 		if (output != null) {
-			if (input != null && input.hasTagCompound()) {
+			if (input != null) {
 				ItemStack clone = input.copy();
-				clone.stackTagCompound = null;
-				if (ItemStack.areItemStacksEqual(clone, output)) {
-					output.stackSize++;
+				if (clone.isItemEqual(output)) {
+					clone.stackTagCompound = null;
+					output.stackSize = Math.min(output.getMaxStackSize(), output.stackSize + 1);
 				}
 			}
 		} else if (input != null) {
 			ItemStack clone = input.copy();
 			clone.stackTagCompound = null;
+			clone.stackSize = 1;
 			setInventorySlotContents(SLOT_OUTPUT, clone);
 		}
 	}
