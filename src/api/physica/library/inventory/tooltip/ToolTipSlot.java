@@ -1,8 +1,8 @@
 package physica.library.inventory.tooltip;
 
-import java.awt.Rectangle;
-
 import net.minecraft.inventory.Slot;
+
+import java.awt.Rectangle;
 
 public class ToolTipSlot extends ToolTip {
 
@@ -14,8 +14,8 @@ public class ToolTipSlot extends ToolTip {
 	}
 
 	@Override
-	public boolean shouldShow()
-	{
+	public boolean shouldShow() {
 		return !slot.getHasStack();
 	}
+
 }

@@ -7,4 +7,5 @@ public interface IRotatable {
 	Face getFacing();
 
 	void setFacing(Face facing);
+
 }

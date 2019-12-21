@@ -13,12 +13,12 @@ import net.minecraft.world.World;
  * It will also return things that are unmodified by the overriding systems
  * (like getWailaStack).<br>
  * An instance of this interface is passed to most of Waila FMP callbacks.
- * 
- * @author ProfMobius
  *
+ * @author ProfMobius
  */
 
 public interface IWailaFMPAccessor {
+
 	World getWorld();
 
 	EntityPlayer getPlayer();
@@ -38,4 +38,5 @@ public interface IWailaFMPAccessor {
 	Vec3 getRenderingPosition();
 
 	String getID();
+
 }

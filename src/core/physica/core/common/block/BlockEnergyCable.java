@@ -1,7 +1,5 @@
 package physica.core.common.block;
 
-import java.util.List;
-
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -32,12 +30,13 @@ import physica.core.common.CoreBlockRegister;
 import physica.core.common.CoreTabRegister;
 import physica.core.common.tile.TileEnergyCable;
 
+import java.util.List;
+
 public class BlockEnergyCable extends Block implements ITileEntityProvider, IBaseUtilities, IRecipeRegister {
 
 	public BlockEnergyCable() {
 		super(Material.cloth);
-		if (FMLCommonHandler.instance().getEffectiveSide().isClient())
-		{
+		if (FMLCommonHandler.instance().getEffectiveSide().isClient()) {
 			icons = new IIcon[EnumConductorType.values().length];
 		}
 		setHardness(3.5F);
@@ -46,13 +45,12 @@ public class BlockEnergyCable extends Block implements ITileEntityProvider, IBas
 		setBlockName(CoreReferences.PREFIX + "energyCable");
 		setCreativeTab(CoreTabRegister.coreTab);
 		setBlockBounds(TileRenderEnergyCable.pixelElevenTwo, TileRenderEnergyCable.pixelElevenTwo, TileRenderEnergyCable.pixelElevenTwo, 1 - TileRenderEnergyCable.pixelElevenTwo, 1 - TileRenderEnergyCable.pixelElevenTwo,
-				1 - TileRenderEnergyCable.pixelElevenTwo);
+			1 - TileRenderEnergyCable.pixelElevenTwo);
 		addToRegister("Core", this);
 	}
 
 	@Override
-	public void registerRecipes()
-	{
+	public void registerRecipes() {
 		addRecipe(new ItemStack(CoreBlockRegister.blockCable, 6, 0), "WIW", "WIW", "WIW", 'W', Blocks.wool, 'I', "ingotCopper");
 		addRecipe(new ItemStack(CoreBlockRegister.blockCable, 6, 0), "LIL", "LIL", "LIL", 'L', Items.leather, 'I', "ingotCopper");
 		addRecipe(new ItemStack(CoreBlockRegister.blockCable, 6, 0), "WWW", "III", "WWW", 'W', Blocks.wool, 'I', "ingotCopper");
@@ -76,47 +74,43 @@ public class BlockEnergyCable extends Block implements ITileEntityProvider, IBas
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
-	{
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z) {
 		setBlockBoundsBasedOnState(world, x, y, z);
 		return super.getCollisionBoundingBoxFromPool(world, x, y, z);
 	}
 
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
-	{
+	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
 		float tempMinX = TileRenderEnergyCable.pixelElevenTwo;
 		float tempMinY = TileRenderEnergyCable.pixelElevenTwo;
 		float tempMinZ = TileRenderEnergyCable.pixelElevenTwo;
 		float tempMaxX = 1 - TileRenderEnergyCable.pixelElevenTwo;
 		float tempMaxY = 1 - TileRenderEnergyCable.pixelElevenTwo;
 		float tempMaxZ = 1 - TileRenderEnergyCable.pixelElevenTwo;
-		for (Face dir : Face.VALID)
-		{
+		for (Face dir : Face.VALID) {
 			TileEntity sideTile = world.getTileEntity(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ);
-			if (AbstractionLayer.Electricity.canConnectElectricity(sideTile, dir.getOpposite()))
-			{
+			if (AbstractionLayer.Electricity.canConnectElectricity(sideTile, dir.getOpposite())) {
 				switch (dir) {
-				case DOWN:
-					tempMinY -= TileRenderEnergyCable.pixelElevenTwo;
-					break;
-				case EAST:
-					tempMaxX += TileRenderEnergyCable.pixelElevenTwo;
-					break;
-				case NORTH:
-					tempMinZ -= TileRenderEnergyCable.pixelElevenTwo;
-					break;
-				case SOUTH:
-					tempMaxZ += TileRenderEnergyCable.pixelElevenTwo;
-					break;
-				case UP:
-					tempMaxY += TileRenderEnergyCable.pixelElevenTwo;
-					break;
-				case WEST:
-					tempMinX -= TileRenderEnergyCable.pixelElevenTwo;
-					break;
-				default:
-					break;
+					case DOWN:
+						tempMinY -= TileRenderEnergyCable.pixelElevenTwo;
+						break;
+					case EAST:
+						tempMaxX += TileRenderEnergyCable.pixelElevenTwo;
+						break;
+					case NORTH:
+						tempMinZ -= TileRenderEnergyCable.pixelElevenTwo;
+						break;
+					case SOUTH:
+						tempMaxZ += TileRenderEnergyCable.pixelElevenTwo;
+						break;
+					case UP:
+						tempMaxY += TileRenderEnergyCable.pixelElevenTwo;
+						break;
+					case WEST:
+						tempMinX -= TileRenderEnergyCable.pixelElevenTwo;
+						break;
+					default:
+						break;
 				}
 			}
 		}
@@ -124,28 +118,22 @@ public class BlockEnergyCable extends Block implements ITileEntityProvider, IBas
 	}
 
 	@Override
-	public void onBlockAdded(World world, int x, int y, int z)
-	{
+	public void onBlockAdded(World world, int x, int y, int z) {
 		super.onBlockAdded(world, x, y, z);
-		if (!world.isRemote)
-		{
+		if (!world.isRemote) {
 			TileEntity tileEntity = world.getTileEntity(x, y, z);
-			if (tileEntity instanceof IConductor)
-			{
+			if (tileEntity instanceof IConductor) {
 				((IConductor) tileEntity).refreshNetwork();
 			}
 		}
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
-	{
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
 		super.onNeighborBlockChange(world, x, y, z, block);
-		if (!world.isRemote)
-		{
+		if (!world.isRemote) {
 			TileEntity tileEntity = world.getTileEntity(x, y, z);
-			if (tileEntity instanceof IConductor)
-			{
+			if (tileEntity instanceof IConductor) {
 				((IConductor) tileEntity).refreshNetwork();
 			}
 		}
@@ -156,77 +144,64 @@ public class BlockEnergyCable extends Block implements ITileEntityProvider, IBas
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister reg)
-	{
-		for (EnumConductorType type : EnumConductorType.values())
-		{
+	public void registerBlockIcons(IIconRegister reg) {
+		for (EnumConductorType type : EnumConductorType.values()) {
 			icons[type.ordinal()] = reg.registerIcon(CoreReferences.PREFIX + "wire/" + type.asset());
 		}
 	}
 
 	@Override
-	public boolean hasTileEntity(int metadata)
-	{
+	public boolean hasTileEntity(int metadata) {
 		return true;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int meta)
-	{
+	public IIcon getIcon(int side, int meta) {
 		return icons[meta];
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int metadata)
-	{
+	public TileEntity createNewTileEntity(World world, int metadata) {
 		return new TileEnergyCable();
 	}
 
 	@Override
-	public boolean renderAsNormalBlock()
-	{
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
 	@Override
-	public int getRenderType()
-	{
+	public int getRenderType() {
 		return -1;
 	}
 
 	@Override
-	public boolean isOpaqueCube()
-	{
+	public boolean isOpaqueCube() {
 		return false;
 	}
 
 	@Override
-	public boolean isNormalCube()
-	{
+	public boolean isNormalCube() {
 		return false;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs tab, @SuppressWarnings("rawtypes") List list)
-	{
-		for (EnumConductorType type : EnumConductorType.values())
-		{
+	public void getSubBlocks(Item item, CreativeTabs tab, @SuppressWarnings("rawtypes") List list) {
+		for (EnumConductorType type : EnumConductorType.values()) {
 			list.add(new ItemStack(item, 1, type.ordinal()));
 		}
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemStack)
-	{
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack itemStack) {
 		world.setBlockMetadataWithNotify(x, y, z, itemStack.getItemDamage(), 3);
 	}
 
 	@Override
-	public int damageDropped(int metadata)
-	{
+	public int damageDropped(int metadata) {
 		return metadata;
 	}
 

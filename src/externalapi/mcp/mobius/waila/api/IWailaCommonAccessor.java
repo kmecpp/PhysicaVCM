@@ -19,9 +19,9 @@ import net.minecraftforge.common.util.ForgeDirection;
  * Common accessor for both Entity and Block/TileEntity.<br>
  * Available data depends on what it is called upon (ie : getEntity() will
  * return null if looking at a block, etc).<br>
- *
  */
 public interface IWailaCommonAccessor {
+
 	World getWorld();
 
 	EntityPlayer getPlayer();
@@ -51,4 +51,5 @@ public interface IWailaCommonAccessor {
 	ForgeDirection getSide();
 
 	ItemStack getStack();
+
 }

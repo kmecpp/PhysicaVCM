@@ -13,4 +13,5 @@ public class ContainerFissionReactor extends ContainerBase<TileFissionReactor> {
 		setSlotCount(TileFissionReactor.SLOT_INPUT + 1);
 		addDefaultPlayerInventory(player, 0);
 	}
+
 }

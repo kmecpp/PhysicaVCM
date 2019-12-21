@@ -16,4 +16,5 @@ public class ContainerCentrifuge extends ContainerBase<TileGasCentrifuge> {
 		setSlotCount(TileGasCentrifuge.SLOT_OUTPUT2 + 1);
 		addDefaultPlayerInventory(player, 10);
 	}
+
 }

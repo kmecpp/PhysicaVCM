@@ -13,4 +13,5 @@ public class ItemBattery extends ItemElectric {
 		setTextureName(CoreReferences.PREFIX + name.toLowerCase());
 		setCreativeTab(CoreTabRegister.coreTab);
 	}
+
 }

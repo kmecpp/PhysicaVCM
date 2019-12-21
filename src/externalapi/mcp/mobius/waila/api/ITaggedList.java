@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface ITaggedList<E, T> extends List<E> {
+
 	public boolean add(E e, T tag);
 
 	public boolean add(E e, Collection<? extends T> taglst);
@@ -26,4 +27,5 @@ public interface ITaggedList<E, T> extends List<E> {
 	public void removeEntries(T tag);
 
 	public String getTagsAsString(E e);
+
 }

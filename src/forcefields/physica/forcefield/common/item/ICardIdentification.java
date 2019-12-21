@@ -1,8 +1,8 @@
 package physica.forcefield.common.item;
 
-import java.util.UUID;
-
 import net.minecraft.item.ItemStack;
+
+import java.util.UUID;
 
 public interface ICardIdentification {
 
@@ -19,4 +19,5 @@ public interface ICardIdentification {
 	UUID getUniqueId(ItemStack itemStack);
 
 	void setUniqueId(ItemStack itemStack, UUID uniqueId);
+
 }

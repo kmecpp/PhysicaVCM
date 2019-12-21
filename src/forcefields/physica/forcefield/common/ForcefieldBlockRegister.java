@@ -20,18 +20,16 @@ import physica.library.item.ItemBlockDescriptable;
 
 public class ForcefieldBlockRegister implements IContent {
 
-	public static BlockCoercionDriver			blockCoercionDriver;
-	public static BlockFortronFieldConstructor	blockFortronConstructor;
-	public static BlockFortronCapacitor			blockFortronCapacitor;
-	public static BlockFortronField				blockFortronField;
-	public static BlockInterdictionMatrix		blockInterdictionMatrix;
-	public static BlockBiometricIdentifier		blockBiometricIdentifier;
+	public static BlockCoercionDriver blockCoercionDriver;
+	public static BlockFortronFieldConstructor blockFortronConstructor;
+	public static BlockFortronCapacitor blockFortronCapacitor;
+	public static BlockFortronField blockFortronField;
+	public static BlockInterdictionMatrix blockInterdictionMatrix;
+	public static BlockBiometricIdentifier blockBiometricIdentifier;
 
 	@Override
-	public void register(LoadPhase phase)
-	{
-		if (phase == LoadPhase.RegisterObjects)
-		{
+	public void register(LoadPhase phase) {
+		if (phase == LoadPhase.RegisterObjects) {
 			AbstractionLayer.Registering.registerBlock(blockCoercionDriver = new BlockCoercionDriver(), ItemBlockDescriptable.class, "coercionDriver");
 			AbstractionLayer.Registering.registerTileEntity(TileCoercionDriver.class, ForcefieldReferences.PREFIX + "coercionDriver");
 			AbstractionLayer.Registering.registerBlock(blockFortronCapacitor = new BlockFortronCapacitor(), ItemBlockDescriptable.class, "fortronCapacitor");
@@ -52,4 +50,5 @@ public class ForcefieldBlockRegister implements IContent {
 			ItemBlockDescriptable.addDescriptionShifted(blockBiometricIdentifier, 0, "Uses the bio-signatures given off by", "players to govern what permissions they have ", "when interacting with force fields and ", "MFFS machines.");
 		}
 	}
+
 }

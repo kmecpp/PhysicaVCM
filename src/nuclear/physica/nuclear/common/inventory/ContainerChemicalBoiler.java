@@ -16,4 +16,5 @@ public class ContainerChemicalBoiler extends ContainerBase<TileChemicalBoiler> {
 		setSlotCount(TileChemicalBoiler.SLOT_INPUT2 + 1);
 		addDefaultPlayerInventory(player, 10);
 	}
+
 }

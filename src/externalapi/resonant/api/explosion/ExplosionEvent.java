@@ -8,12 +8,12 @@ import net.minecraft.world.World;
 @Cancelable
 public class ExplosionEvent extends Event {
 
-	public World		world;
-	public double		x;
-	public double		y;
-	public double		z;
-	public IExplosion	iExplosion;
-	public Explosion	explosion;
+	public World world;
+	public double x;
+	public double y;
+	public double z;
+	public IExplosion iExplosion;
+	public Explosion explosion;
 
 	public ExplosionEvent(World world, IExplosion iExplosion) {
 		this.world = world;
@@ -21,8 +21,7 @@ public class ExplosionEvent extends Event {
 		x = ((Explosion) iExplosion).explosionX;
 		y = ((Explosion) iExplosion).explosionY;
 		z = ((Explosion) iExplosion).explosionZ;
-		if (this.iExplosion instanceof Explosion)
-		{
+		if (this.iExplosion instanceof Explosion) {
 			explosion = (Explosion) this.iExplosion;
 		}
 	}
@@ -32,6 +31,7 @@ public class ExplosionEvent extends Event {
 		public ExplosionConstructionEvent(World world, IExplosion explosion) {
 			super(world, explosion);
 		}
+
 	}
 
 	public static class PreExplosionEvent extends ExplosionEvent {
@@ -39,6 +39,7 @@ public class ExplosionEvent extends Event {
 		public PreExplosionEvent(World world, IExplosion explosion) {
 			super(world, explosion);
 		}
+
 	}
 
 	public static class DoExplosionEvent extends ExplosionEvent {
@@ -46,6 +47,7 @@ public class ExplosionEvent extends Event {
 		public DoExplosionEvent(World world, IExplosion explosion) {
 			super(world, explosion);
 		}
+
 	}
 
 	public static class PostExplosionEvent extends ExplosionEvent {
@@ -53,5 +55,7 @@ public class ExplosionEvent extends Event {
 		public PostExplosionEvent(World world, IExplosion explosion) {
 			super(world, explosion);
 		}
+
 	}
+
 }

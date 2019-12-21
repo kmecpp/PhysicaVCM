@@ -1,11 +1,10 @@
 package physica.nuclear.client.gui;
 
-import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
 import physica.CoreReferences;
 import physica.library.client.gui.GuiContainerBase;
 import physica.library.energy.ElectricityDisplay;
@@ -26,16 +25,14 @@ public class GuiQuantumAssembler extends GuiContainerBase<TileQuantumAssembler> 
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
-	{
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		drawString("Usage: " + ElectricityDisplay.getDisplayShort(ElectricityUtilities.convertEnergy(host.getPowerUsage(), Unit.RF, Unit.WATT), Unit.WATT), 6, 6);
 		fontRendererObj.drawString("Progress: " + (int) ((float) host.getOperatingTicks() / TileQuantumAssembler.TICKS_REQUIRED * 100) + "%", xSize / 2 - 80, ySize - 106, 0x404040);
 		drawString("Inventory", 8, 73 + 230 - defaultYSize);
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float f, int mouseX, int mouseY)
-	{
+	protected void drawGuiContainerBackgroundLayer(float f, int mouseX, int mouseY) {
 		containerWidth = (width - xSize) / 2;
 		containerHeight = (height - ySize) / 2;
 
@@ -47,4 +44,5 @@ public class GuiQuantumAssembler extends GuiContainerBase<TileQuantumAssembler> 
 		preDrawContainerSlots();
 		drawContainerSlots();
 	}
+
 }

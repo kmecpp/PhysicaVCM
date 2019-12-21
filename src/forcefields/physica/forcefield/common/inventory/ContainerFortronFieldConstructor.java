@@ -1,12 +1,12 @@
 package physica.forcefield.common.inventory;
 
-import java.awt.Color;
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import physica.forcefield.common.tile.TileFortronFieldConstructor;
 import physica.library.inventory.ContainerBase;
 import physica.library.inventory.slot.SlotBase;
+
+import java.awt.Color;
+import java.util.List;
 
 public class ContainerFortronFieldConstructor extends ContainerBase<TileFortronFieldConstructor> {
 
@@ -17,17 +17,12 @@ public class ContainerFortronFieldConstructor extends ContainerBase<TileFortronF
 		addSlotToContainer(new SlotBase(host, TileFortronFieldConstructor.SLOT_TYPE, 118, 45).setEdgeColor(Color.DARK_GRAY).setBaseColor(Color.DARK_GRAY).setToolTip("Shape"));
 
 		int slotIndex = 0;
-		for (int xSlot = 0; xSlot < 4; xSlot++)
-		{
-			for (int ySlot = 0; ySlot < 4; ySlot++)
-			{
-				if ((xSlot != 1 || ySlot != 1) && (xSlot != 2 || ySlot != 2) && (xSlot != 1 || ySlot != 2) && (xSlot != 2 || ySlot != 1))
-				{
+		for (int xSlot = 0; xSlot < 4; xSlot++) {
+			for (int ySlot = 0; ySlot < 4; ySlot++) {
+				if ((xSlot != 1 || ySlot != 1) && (xSlot != 2 || ySlot != 2) && (xSlot != 1 || ySlot != 2) && (xSlot != 2 || ySlot != 1)) {
 					String toolTip = "";
-					for (List<Integer> slots : TileFortronFieldConstructor.SLOT_MAP.keySet())
-					{
-						if (slots.contains(slotIndex))
-						{
+					for (List<Integer> slots : TileFortronFieldConstructor.SLOT_MAP.keySet()) {
+						if (slots.contains(slotIndex)) {
 							toolTip = TileFortronFieldConstructor.SLOT_MAP.get(slots);
 						}
 					}
@@ -36,10 +31,8 @@ public class ContainerFortronFieldConstructor extends ContainerBase<TileFortronF
 				}
 			}
 		}
-		for (int xSlot = 0; xSlot < 3; xSlot++)
-		{
-			for (int ySlot = 0; ySlot < 2; ySlot++)
-			{
+		for (int xSlot = 0; xSlot < 3; xSlot++) {
+			for (int ySlot = 0; ySlot < 2; ySlot++) {
 				addSlotToContainer(new SlotBase(host, slotIndex, 19 + 18 * xSlot, 52 + 18 * ySlot));
 				slotIndex++;
 			}
@@ -47,4 +40,5 @@ public class ContainerFortronFieldConstructor extends ContainerBase<TileFortronF
 		setSlotCount(TileFortronFieldConstructor.SLOT_TYPE + 1);
 		addDefaultPlayerInventory(player, 71);
 	}
+
 }

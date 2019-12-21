@@ -1,10 +1,10 @@
 package physica.library.inventory.tooltip;
 
-import java.awt.Rectangle;
-
 import net.minecraft.tileentity.TileEntity;
 import physica.api.core.abstraction.AbstractionLayer;
 import physica.api.core.abstraction.Face;
+
+import java.awt.Rectangle;
 
 public class ToolTipEnergy extends ToolTip {
 
@@ -16,16 +16,14 @@ public class ToolTipEnergy extends ToolTip {
 	}
 
 	@Override
-	public String getLocalizedTooltip()
-	{
-		if (AbstractionLayer.Electricity.isElectricReceiver(receiver))
-		{
-			if (AbstractionLayer.Electricity.getElectricityStored(receiver, Face.UNKNOWN) <= 0)
-			{
+	public String getLocalizedTooltip() {
+		if (AbstractionLayer.Electricity.isElectricReceiver(receiver)) {
+			if (AbstractionLayer.Electricity.getElectricityStored(receiver, Face.UNKNOWN) <= 0) {
 				return "Empty";
 			}
 			return "Stored: " + AbstractionLayer.Electricity.getElectricityStored(receiver, Face.UNKNOWN) / AbstractionLayer.Electricity.getElectricCapacity(receiver, Face.UNKNOWN) * 100 + "%";
 		}
 		return "Invalid Tile";
 	}
+
 }

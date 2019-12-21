@@ -1,10 +1,9 @@
 package physica.nuclear.client.render.tile;
 
-import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
+import org.lwjgl.opengl.GL11;
 import physica.library.client.render.TileRenderObjModel;
 import physica.library.location.GridLocation;
 import physica.nuclear.common.tile.TileFusionReactor;
@@ -17,12 +16,10 @@ public class TileRenderFusionReactor extends TileRenderObjModel<TileFusionReacto
 	}
 
 	@Override
-	public void renderTileAt(TileFusionReactor tile, double x, double y, double z, float deltaFrame)
-	{
+	public void renderTileAt(TileFusionReactor tile, double x, double y, double z, float deltaFrame) {
 		super.renderTileAt(tile, x, y, z, deltaFrame);
 		GridLocation loc = tile.getLocation();
-		if (Minecraft.getMinecraft().thePlayer.getDistanceSq(loc.xCoord, loc.yCoord, loc.zCoord) <= 64)
-		{
+		if (Minecraft.getMinecraft().thePlayer.getDistanceSq(loc.xCoord, loc.yCoord, loc.zCoord) <= 64) {
 			GL11.glPushMatrix();
 			int deuterium = tile.getStackInSlot(TileFusionReactor.SLOT_DEUTERIUM) != null ? tile.getStackInSlot(TileFusionReactor.SLOT_DEUTERIUM).stackSize : 0;
 			TileRenderObjModel.renderFloatingText("Deuterium: " + deuterium / 0.04 + "ml", (float) x + 0.5F, (float) y + 0.25F - 2.0F + 1.25f, (float) z + 0.5F, 16777215);

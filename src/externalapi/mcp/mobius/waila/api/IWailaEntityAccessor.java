@@ -13,12 +13,12 @@ import net.minecraft.world.World;
  * It will also return things that are unmodified by the overriding systems
  * (like getWailaStack).<br>
  * An instance of this interface is passed to most of Waila Entity callbacks.
- * 
- * @author ProfMobius
  *
+ * @author ProfMobius
  */
 
 public interface IWailaEntityAccessor {
+
 	World getWorld();
 
 	EntityPlayer getPlayer();
@@ -34,4 +34,5 @@ public interface IWailaEntityAccessor {
 	int getNBTInteger(NBTTagCompound tag, String keyname);
 
 	double getPartialFrame();
+
 }

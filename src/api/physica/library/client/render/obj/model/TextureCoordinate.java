@@ -1,6 +1,7 @@
 package physica.library.client.render.obj.model;
 
 public class TextureCoordinate {
+
 	public float u, v, w;
 
 	public TextureCoordinate(float u, float v) {
@@ -12,4 +13,5 @@ public class TextureCoordinate {
 		this.v = v;
 		this.w = w;
 	}
+
 }

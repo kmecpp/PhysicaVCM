@@ -16,8 +16,8 @@ public interface IBlockFrequency {
 	/**
 	 * Sets the frequency
 	 *
-	 * @param frequency
-	 *            - The frequency of this object.
+	 * @param frequency - The frequency of this object.
 	 */
 	public void setFrequency(int frequency);
+
 }

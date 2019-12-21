@@ -17,9 +17,8 @@ import net.minecraftforge.common.util.ForgeDirection;
  * (like getWailaStack).<br>
  * An instance of this interface is passed to most of Waila Block/TileEntity
  * callbacks.
- * 
- * @author ProfMobius
  *
+ * @author ProfMobius
  */
 
 public interface IWailaDataAccessor {
@@ -51,4 +50,5 @@ public interface IWailaDataAccessor {
 	ForgeDirection getSide();
 
 	ItemStack getStack();
+
 }

@@ -1,11 +1,10 @@
 package physica.library.inventory.slot;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import org.lwjgl.opengl.GL11;
 import physica.api.core.abstraction.AbstractionLayer;
 import physica.library.client.gui.GuiContainerBase;
 import physica.library.inventory.tooltip.ToolTip;
@@ -25,14 +24,12 @@ public class SlotEnergyHolder extends SlotBase {
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack stack)
-	{
+	public boolean isItemValid(ItemStack stack) {
 		return AbstractionLayer.Electricity.isItemElectric(stack);
 	}
 
 	@Override
-	protected void drawIcon(Gui gui, int x, int y)
-	{
+	protected void drawIcon(Gui gui, int x, int y) {
 		Minecraft.getMinecraft().renderEngine.bindTexture(GuiContainerBase.GUI_COMPONENTS);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
@@ -40,8 +37,8 @@ public class SlotEnergyHolder extends SlotBase {
 	}
 
 	@Override
-	public ToolTip getToolTip()
-	{
+	public ToolTip getToolTip() {
 		return toolTipBase;
 	}
+
 }

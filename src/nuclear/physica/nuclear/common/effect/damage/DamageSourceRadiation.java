@@ -13,4 +13,5 @@ public class DamageSourceRadiation extends PhysicaDamageSource {
 
 		setDeathMessages("died from radiation exposure", "held too much uranium");
 	}
+
 }

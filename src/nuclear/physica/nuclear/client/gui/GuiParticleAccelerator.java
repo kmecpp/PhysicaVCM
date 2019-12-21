@@ -22,8 +22,7 @@ public class GuiParticleAccelerator extends GuiContainerBase<TileParticleAcceler
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
-	{
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		drawString("Velocity: " + roundPrecise((double) (host.getParticleVelocity() / ConfigNuclearPhysics.ANTIMATTER_CREATION_SPEED * 100.0F), 1) + "%", 8, 19);
 		drawString("Status: " + host.getAcceleratorStatus().name(), 8, 30);
@@ -32,4 +31,5 @@ public class GuiParticleAccelerator extends GuiContainerBase<TileParticleAcceler
 		drawString("Used: " + ElectricityDisplay.getDisplayShort(ElectricityUtilities.convertEnergy(host.getSessionUse() * host.getCurrentSessionTicks(), Unit.RF, Unit.WATTHOUR), Unit.WATTHOUR), 8, 52);
 		drawStringCentered(StatCollector.translateToLocal("tile." + NuclearReferences.PREFIX + "accelerator.gui"), xSize / 2, 5);
 	}
+
 }

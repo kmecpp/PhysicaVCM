@@ -12,4 +12,5 @@ public interface IGuiInterface extends IPlayerUsing {
 	GuiScreen getClientGuiElement(int id, EntityPlayer player);
 
 	Container getServerGuiElement(int id, EntityPlayer player);
+
 }

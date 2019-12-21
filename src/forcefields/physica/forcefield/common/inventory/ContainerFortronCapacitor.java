@@ -16,4 +16,5 @@ public class ContainerFortronCapacitor extends ContainerBase<TileFortronCapacito
 		setSlotCount(TileFortronCapacitor.SLOT_MODULE3 + 1);
 		addDefaultPlayerInventory(player, 51);
 	}
+
 }

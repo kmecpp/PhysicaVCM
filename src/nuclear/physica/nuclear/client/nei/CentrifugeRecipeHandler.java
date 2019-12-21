@@ -1,16 +1,5 @@
 package physica.nuclear.client.nei;
 
-import static codechicken.lib.gui.GuiDraw.changeTexture;
-import static codechicken.lib.gui.GuiDraw.drawString;
-import static codechicken.lib.gui.GuiDraw.drawTexturedModalRect;
-
-import java.awt.Color;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.List;
-
-import org.lwjgl.opengl.GL11;
-
 import codechicken.lib.gui.GuiDraw;
 import codechicken.nei.NEIClientConfig;
 import codechicken.nei.PositionedStack;
@@ -21,41 +10,44 @@ import codechicken.nei.recipe.TemplateRecipeHandler;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import org.lwjgl.opengl.GL11;
 import physica.core.client.nei.PhysicaRecipeHandlerBase;
 import physica.nuclear.client.gui.GuiCentrifuge;
 import physica.nuclear.common.NuclearFluidRegister;
 import physica.nuclear.common.NuclearItemRegister;
 import physica.nuclear.common.tile.TileGasCentrifuge;
 
+import java.awt.Color;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.util.List;
+
+import static codechicken.lib.gui.GuiDraw.*;
+
 public class CentrifugeRecipeHandler extends PhysicaRecipeHandlerBase {
 
 	@Override
-	public String getRecipeName()
-	{
+	public String getRecipeName() {
 		return "Gas Centrifuge";
 	}
 
-	public String getRecipeID()
-	{
+	public String getRecipeID() {
 		return "Physica.GasCentrifuge";
 	}
 
 	@Override
-	public Class<GuiCentrifuge> getGuiClass()
-	{
+	public Class<GuiCentrifuge> getGuiClass() {
 		return GuiCentrifuge.class;
 	}
 
 	@Override
-	public void onUpdate()
-	{
+	public void onUpdate() {
 		super.onUpdate();
 		cycleticks += TileGasCentrifuge.TICKS_REQUIRED / 50;
 	}
 
 	@Override
-	public void drawBackground(int i)
-	{
+	public void drawBackground(int i) {
 		recipe theRecipe = (recipe) arecipes.get(i);
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -73,55 +65,45 @@ public class CentrifugeRecipeHandler extends PhysicaRecipeHandlerBase {
 	}
 
 	@Override
-	public void loadCraftingRecipes(String outputId, Object... results)
-	{
+	public void loadCraftingRecipes(String outputId, Object... results) {
 
-		if (outputId.equals(getRecipeID()))
-		{
+		if (outputId.equals(getRecipeID())) {
 			arecipes.add(new recipe(2500, NuclearItemRegister.itemUranium238, .828f));
 			arecipes.add(new recipe(2500, NuclearItemRegister.itemUranium235, .172f));
-		} else if (outputId.equals("item") && results[0] instanceof ItemStack)
-		{
-			if (((ItemStack) results[0]).getItem() == NuclearItemRegister.itemUranium238)
-			{
+		} else if (outputId.equals("item") && results[0] instanceof ItemStack) {
+			if (((ItemStack) results[0]).getItem() == NuclearItemRegister.itemUranium238) {
 				arecipes.add(new recipe(2500, NuclearItemRegister.itemUranium238, .828f));
-			} else if (((ItemStack) results[0]).getItem() == NuclearItemRegister.itemUranium235)
-			{
+			} else if (((ItemStack) results[0]).getItem() == NuclearItemRegister.itemUranium235) {
 				arecipes.add(new recipe(2500, NuclearItemRegister.itemUranium235, .172f));
 			}
 		}
 	}
 
 	@Override
-	public void drawExtras(int recipe)
-	{
+	public void drawExtras(int recipe) {
 		mc.renderEngine.bindTexture(GUI_COMPONENTS);
 		drawProgressBar(36, 24, 18, 15, 22, 15, TileGasCentrifuge.TICKS_REQUIRED, 0);
 	}
 
 	@Override
-	public void loadTransferRects()
-	{
+	public void loadTransferRects() {
 		transferRects.add(new RecipeTransferRect(new Rectangle(36, 24, 22, 15), getRecipeID(), new Object[0]));
 	}
 
 	@Override
-	public int recipiesPerPage()
-	{
+	public int recipiesPerPage() {
 		return 2;
 	}
 
 	@Override
-	public java.util.List<String> handleTooltip(GuiRecipe gui, List<String> currenttip, int recipe)
-	{
+	public java.util.List<String> handleTooltip(GuiRecipe gui, List<String> currenttip, int recipe) {
 		Point point = GuiDraw.getMousePosition();
 		Point offset = gui.getRecipePosition(recipe);
 		Point relMouse = new Point(point.x - (gui.width - 176) / 2 - offset.x, point.y - (gui.height - 166) / 2 - offset.y);
 
 		recipe theRecipe = (recipe) arecipes.get(recipe);
 
-		if (relMouse.x > 8 && relMouse.x < 8 + meterWidth && relMouse.y > 8 && relMouse.y < 8 + meterHeight)
-		{
+		if (relMouse.x > 8 && relMouse.x < 8 + meterWidth && relMouse.y > 8 && relMouse.y < 8 + meterHeight) {
 			currenttip.add("Hexafluoride: " + theRecipe.hexaCost + "/5000ml");
 		}
 
@@ -129,24 +111,19 @@ public class CentrifugeRecipeHandler extends PhysicaRecipeHandlerBase {
 	}
 
 	@Override
-	public boolean mouseClicked(GuiRecipe gui, int button, int recipe)
-	{
+	public boolean mouseClicked(GuiRecipe gui, int button, int recipe) {
 		Point point = GuiDraw.getMousePosition();
 		Point offset = gui.getRecipePosition(recipe);
 		Point relMouse = new Point(point.x - (gui.width - 176) / 2 - offset.x, point.y - (gui.height - 166) / 2 - offset.y);
 
-		if (button == 0)
-		{
-			if (relMouse.x > 8 && relMouse.x < 8 + meterWidth && relMouse.y > 8 && relMouse.y < 8 + meterHeight)
-			{
-				GuiCraftingRecipe.openRecipeGui("fluid", new Object[] { new FluidStack(NuclearFluidRegister.LIQUID_HE, 1000) });
+		if (button == 0) {
+			if (relMouse.x > 8 && relMouse.x < 8 + meterWidth && relMouse.y > 8 && relMouse.y < 8 + meterHeight) {
+				GuiCraftingRecipe.openRecipeGui("fluid", new Object[] {new FluidStack(NuclearFluidRegister.LIQUID_HE, 1000)});
 				return true;
 			}
-		} else if (button == 1)
-		{
-			if (relMouse.x > 8 && relMouse.x < 8 + meterWidth && relMouse.y > 8 && relMouse.y < 8 + meterHeight)
-			{
-				GuiUsageRecipe.openRecipeGui("fluid", new Object[] { new FluidStack(NuclearFluidRegister.LIQUID_HE, 1000) });
+		} else if (button == 1) {
+			if (relMouse.x > 8 && relMouse.x < 8 + meterWidth && relMouse.y > 8 && relMouse.y < 8 + meterHeight) {
+				GuiUsageRecipe.openRecipeGui("fluid", new Object[] {new FluidStack(NuclearFluidRegister.LIQUID_HE, 1000)});
 				return true;
 			}
 		}
@@ -154,23 +131,18 @@ public class CentrifugeRecipeHandler extends PhysicaRecipeHandlerBase {
 	}
 
 	@Override
-	public boolean keyTyped(GuiRecipe gui, char keyChar, int keyCode, int recipe)
-	{
+	public boolean keyTyped(GuiRecipe gui, char keyChar, int keyCode, int recipe) {
 		Point point = GuiDraw.getMousePosition();
 		Point offset = gui.getRecipePosition(recipe);
 		Point relMouse = new Point(point.x - (gui.width - 176) / 2 - offset.x, point.y - (gui.height - 166) / 2 - offset.y);
-		if (keyCode == NEIClientConfig.getKeyBinding("gui.recipe"))
-		{
-			if (relMouse.x > 8 && relMouse.x < 8 + meterWidth && relMouse.y > 8 && relMouse.y < 8 + meterHeight)
-			{
-				GuiCraftingRecipe.openRecipeGui("fluid", new Object[] { new FluidStack(NuclearFluidRegister.LIQUID_HE, 1000) });
+		if (keyCode == NEIClientConfig.getKeyBinding("gui.recipe")) {
+			if (relMouse.x > 8 && relMouse.x < 8 + meterWidth && relMouse.y > 8 && relMouse.y < 8 + meterHeight) {
+				GuiCraftingRecipe.openRecipeGui("fluid", new Object[] {new FluidStack(NuclearFluidRegister.LIQUID_HE, 1000)});
 				return true;
 			}
-		} else if (keyCode == NEIClientConfig.getKeyBinding("gui.usage"))
-		{
-			if (relMouse.x > 8 && relMouse.x < 8 + meterWidth && relMouse.y > 8 && relMouse.y < 8 + meterHeight)
-			{
-				GuiUsageRecipe.openRecipeGui("fluid", new Object[] { new FluidStack(NuclearFluidRegister.LIQUID_HE, 1000) });
+		} else if (keyCode == NEIClientConfig.getKeyBinding("gui.usage")) {
+			if (relMouse.x > 8 && relMouse.x < 8 + meterWidth && relMouse.y > 8 && relMouse.y < 8 + meterHeight) {
+				GuiUsageRecipe.openRecipeGui("fluid", new Object[] {new FluidStack(NuclearFluidRegister.LIQUID_HE, 1000)});
 				return true;
 			}
 		}
@@ -180,15 +152,13 @@ public class CentrifugeRecipeHandler extends PhysicaRecipeHandlerBase {
 
 	class recipe extends TemplateRecipeHandler.CachedRecipe {
 
-		public int			hexaCost;
-		public ItemStack	itemOutput;
-		public float		chance;
+		public int hexaCost;
+		public ItemStack itemOutput;
+		public float chance;
 
 		@Override
-		public PositionedStack getResult()
-		{
-			if (itemOutput.getItem() == NuclearItemRegister.itemUranium238)
-			{
+		public PositionedStack getResult() {
+			if (itemOutput.getItem() == NuclearItemRegister.itemUranium238) {
 				return new PositionedStack(itemOutput, 102, 25);
 			}
 			return new PositionedStack(itemOutput, 82, 25);
@@ -201,9 +171,10 @@ public class CentrifugeRecipeHandler extends PhysicaRecipeHandlerBase {
 		}
 
 		@Override
-		public PositionedStack getIngredient()
-		{
+		public PositionedStack getIngredient() {
 			return null;
 		}
+
 	}
+
 }

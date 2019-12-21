@@ -1,8 +1,8 @@
 package mcp.mobius.waila.api;
 
-import java.util.LinkedHashMap;
-
 import net.minecraft.item.ItemStack;
+
+import java.util.LinkedHashMap;
 
 public interface IWailaSummaryProvider {
 	/*
@@ -20,4 +20,5 @@ public interface IWailaSummaryProvider {
 	// int getDurability(ItemStack stack);
 
 	LinkedHashMap<String, String> getSummary(ItemStack stack, LinkedHashMap<String, String> currentSummary, IWailaConfigHandler config);
+
 }

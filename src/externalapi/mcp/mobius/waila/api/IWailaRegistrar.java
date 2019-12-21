@@ -19,13 +19,12 @@ package mcp.mobius.waila.api;
  * keyname refers to an unique key used internally for config query (cf
  * {@link IWailaConfigHandler}). Those keys are shared across Waila, keep them
  * unique !<br>
- * 
- * 
- * @author ProfMobius
  *
+ * @author ProfMobius
  */
 @SuppressWarnings("rawtypes")
 public interface IWailaRegistrar {
+
 	/*
 	 * Add a config option in the section modname with displayed text configtext and
 	 * access key keyname
@@ -96,7 +95,7 @@ public interface IWailaRegistrar {
 	 * registerNBTKey("bob.*", MyBlock.class) registerNBTKey("data.life",
 	 * MyEntity.class) registerNBTKey("*", MyTileEntity.class) will reproduce the
 	 * full tag syncing from 1.4.5
-	 * 
+	 *
 	 * This registration method is deprecated in favor to registerNBTProvider. It
 	 * will be removed in MC 1.8 !!!
 	 */

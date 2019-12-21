@@ -10,8 +10,8 @@ public class SlotOutput extends SlotBase {
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack stack)
-	{
+	public boolean isItemValid(ItemStack stack) {
 		return false;
 	}
+
 }

@@ -9,9 +9,8 @@ import net.minecraft.item.ItemStack;
  * {@link IWailaRegistrar} instance provided in the original registration
  * callback method (cf. {@link IWailaRegistrar} documentation for more
  * information).
- * 
- * @author ProfMobius
  *
+ * @author ProfMobius
  */
 public interface IWailaBlockDecorator {
 
@@ -20,14 +19,11 @@ public interface IWailaBlockDecorator {
 	 * block.</br>
 	 * Will be used if the implementing class is registered via
 	 * {@link IWailaRegistrar}.{@link registerDecorator}.</br>
-	 * 
-	 * @param itemStack
-	 *            Current block scanned, in ItemStack form.
-	 * @param accessor
-	 *            Contains most of the relevant information about the current
-	 *            environment.
-	 * @param config
-	 *            Current configuration of Waila.
+	 *
+	 * @param itemStack Current block scanned, in ItemStack form.
+	 * @param accessor  Contains most of the relevant information about the current
+	 *                  environment.
+	 * @param config    Current configuration of Waila.
 	 */
 	void decorateBlock(ItemStack itemStack, IWailaDataAccessor accessor, IWailaConfigHandler config);
 

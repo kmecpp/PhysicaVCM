@@ -1,11 +1,12 @@
 package mcp.mobius.waila.api;
 
-import java.util.List;
-
 import net.minecraft.item.ItemStack;
+
+import java.util.List;
 
 @Deprecated
 public interface IWailaBlock {
+
 	/*
 	 * Use this method to return an item stack in case the default lookup system
 	 * fails. Return null if you want to use the default lookup system. You get the
@@ -31,7 +32,7 @@ public interface IWailaBlock {
 	 * current item name as currenttip. You can modify the tips, add more, remove
 	 * some, etc. When you are done, just returns the currenttip and it will display
 	 * in Waila.
-	 * 
+	 *
 	 * Always return the currenttip is you don't want to modify the current zone.
 	 */
 
@@ -40,4 +41,5 @@ public interface IWailaBlock {
 	List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config);
 
 	List<String> getWailaTail(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config);
+
 }

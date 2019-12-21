@@ -1,6 +1,7 @@
 package physica.library.client.render.obj.model;
 
 public class Vertex {
+
 	public double x, y, z;
 
 	public Vertex(double x, double y) {
@@ -12,4 +13,5 @@ public class Vertex {
 		this.y = y;
 		this.z = z;
 	}
+
 }

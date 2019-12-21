@@ -16,4 +16,5 @@ public class ContainerCoercionDriver extends ContainerBase<TileCoercionDriver> {
 		setSlotCount(TileCoercionDriver.SLOT_MODULE3 + 1);
 		addDefaultPlayerInventory(player, 51);
 	}
+
 }

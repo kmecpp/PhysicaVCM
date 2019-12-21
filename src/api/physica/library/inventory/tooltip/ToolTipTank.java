@@ -1,8 +1,8 @@
 package physica.library.inventory.tooltip;
 
-import java.awt.Rectangle;
-
 import net.minecraftforge.fluids.IFluidTank;
+
+import java.awt.Rectangle;
 
 public class ToolTipTank extends ToolTip {
 
@@ -14,12 +14,11 @@ public class ToolTipTank extends ToolTip {
 	}
 
 	@Override
-	public String getLocalizedTooltip()
-	{
-		if (tank.getFluid() != null && tank.getFluidAmount() > 0)
-		{
+	public String getLocalizedTooltip() {
+		if (tank.getFluid() != null && tank.getFluidAmount() > 0) {
 			return tank.getFluid().getLocalizedName() + ": " + tank.getFluidAmount() + "/" + tank.getCapacity() + "ml";
 		}
 		return "Empty";
 	}
+
 }

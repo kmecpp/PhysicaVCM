@@ -16,4 +16,5 @@ public class ContainerChemicalExtractor extends ContainerBase<TileChemicalExtrac
 		setSlotCount(TileChemicalExtractor.SLOT_OUTPUT + 1);
 		addDefaultPlayerInventory(player, 10);
 	}
+
 }

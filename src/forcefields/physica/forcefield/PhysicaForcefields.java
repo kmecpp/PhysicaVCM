@@ -1,9 +1,5 @@
 package physica.forcefield;
 
-import java.awt.Color;
-import java.io.File;
-import java.util.ArrayList;
-
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -35,26 +31,29 @@ import physica.forcefield.common.configuration.ConfigForcefields;
 import physica.forcefield.common.tile.TileFortronFieldConstructor;
 import physica.proxy.CommonProxy;
 
+import java.awt.Color;
+import java.io.File;
+import java.util.ArrayList;
+
 @Mod(modid = ForcefieldReferences.DOMAIN, name = ForcefieldReferences.NAME, version = CoreReferences.VERSION, dependencies = "required-after:" + CoreReferences.DOMAIN)
 public class PhysicaForcefields {
 
 	@SidedProxy(clientSide = "physica.proxy.ClientProxy", serverSide = "physica.proxy.ServerProxy")
-	public static CommonProxy			sidedProxy;
-	public static ContentLoader			proxyLoader		= new ContentLoader();
+	public static CommonProxy sidedProxy;
+	public static ContentLoader proxyLoader = new ContentLoader();
 
 	@Instance(ForcefieldReferences.NAME)
-	public static PhysicaForcefields	INSTANCE;
+	public static PhysicaForcefields INSTANCE;
 	@Metadata(ForcefieldReferences.DOMAIN)
-	public static ModMetadata			metadata;
+	public static ModMetadata metadata;
 
-	public static File					configFolder;
-	public static ConfigForcefields		config;
+	public static File configFolder;
+	public static ConfigForcefields config;
 
-	public static int					DEFAULT_COLOR	= Color.CYAN.brighter().brighter().getRGB();
+	public static int DEFAULT_COLOR = Color.CYAN.brighter().brighter().getRGB();
 
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event)
-	{
+	public void preInit(FMLPreInitializationEvent event) {
 		INSTANCE = this;
 		configFolder = new File(event.getModConfigurationDirectory(), "/" + ForcefieldReferences.DOMAIN);
 		proxyLoader.addContent(sidedProxy);
@@ -67,8 +66,7 @@ public class PhysicaForcefields {
 
 		proxyLoader.addContent(new ForcefieldFluidRegister());
 
-		if (event.getSide() == Side.CLIENT)
-		{
+		if (event.getSide() == Side.CLIENT) {
 			proxyLoader.addContent(new ForcefieldClientRegister());
 		}
 
@@ -94,8 +92,7 @@ public class PhysicaForcefields {
 	}
 
 	@EventHandler
-	public void init(FMLInitializationEvent event)
-	{
+	public void init(FMLInitializationEvent event) {
 		proxyLoader.callRegister(LoadPhase.Initialize);
 		proxyLoader.callRegister(LoadPhase.EntityRegister);
 		proxyLoader.callRegister(LoadPhase.FluidRegister);
@@ -103,39 +100,33 @@ public class PhysicaForcefields {
 	}
 
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent event)
-	{
+	public void postInit(FMLPostInitializationEvent event) {
 		proxyLoader.callRegister(LoadPhase.PostInitialize);
 	}
 
 	@EventHandler
-	public void loadComplete(FMLLoadCompleteEvent event)
-	{
+	public void loadComplete(FMLLoadCompleteEvent event) {
 		proxyLoader.callRegister(LoadPhase.OnStartup);
 		IRecipeRegister.callRegister("Forcefields");
 	}
 
 	@EventHandler
-	public void serverStarting(FMLServerStartingEvent event)
-	{
+	public void serverStarting(FMLServerStartingEvent event) {
 		event.registerServerCommand(new SetIdentityCommand());
 		ConstructorWorldData.load(event.getServer().worldServerForDimension(0));
 	}
 
-	public static ArrayList<TileFortronFieldConstructor> getRelevantConstructors(World world, double x, double y, double z)
-	{
+	public static ArrayList<TileFortronFieldConstructor> getRelevantConstructors(World world, double x, double y, double z) {
 		return ForcefieldEventHandler.INSTANCE.getRelevantConstructors(world, x, y, z);
 	}
 
-	public static boolean isInForcefields(ArrayList<TileFortronFieldConstructor> constructors, double x, double y, double z)
-	{
-		for (TileFortronFieldConstructor constructor : constructors)
-		{
-			if (constructor.isProtecting(x, y, z))
-			{
+	public static boolean isInForcefields(ArrayList<TileFortronFieldConstructor> constructors, double x, double y, double z) {
+		for (TileFortronFieldConstructor constructor : constructors) {
+			if (constructor.isProtecting(x, y, z)) {
 				return true;
 			}
 		}
 		return false;
 	}
+
 }

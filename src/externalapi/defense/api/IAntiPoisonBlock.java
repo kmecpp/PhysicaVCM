@@ -10,4 +10,5 @@ public interface IAntiPoisonBlock {
 	 * @return
 	 */
 	public boolean isPoisonPrevention(World par1World, int x, int y, int z, String type);
+
 }

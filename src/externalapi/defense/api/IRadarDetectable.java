@@ -13,8 +13,7 @@ public interface IRadarDetectable {
 	/**
 	 * Whether or not this TileEntity can be detected by radar.
 	 *
-	 * @param radar
-	 *            - the radar TileEntity
+	 * @param radar - the radar TileEntity
 	 * @return if this TileEntity is detectable by radar
 	 */
 	public boolean canDetect(TileEntity radar);
@@ -25,4 +24,5 @@ public interface IRadarDetectable {
 	 * @return this TileEntity's radar display name
 	 */
 	public String getRadarDisplayName();
+
 }

@@ -15,4 +15,5 @@ public class ContainerParticleAccelerator extends ContainerBase<TileParticleAcce
 		setSlotCount(TileParticleAccelerator.SLOT_OUTPUT + 1);
 		addDefaultPlayerInventory(player, 0);
 	}
+
 }

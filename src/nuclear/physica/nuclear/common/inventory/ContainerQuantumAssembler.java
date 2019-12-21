@@ -21,4 +21,5 @@ public class ContainerQuantumAssembler extends ContainerBase<TileQuantumAssemble
 		setSlotCount(TileQuantumAssembler.SLOT_OUTPUT + 1);
 		addDefaultPlayerInventory(player, 230 - GuiContainerBase.defaultYSize);
 	}
+
 }

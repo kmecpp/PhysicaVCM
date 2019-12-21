@@ -7,4 +7,5 @@ public abstract interface IExplosion {
 	public abstract float getRadius();
 
 	public abstract long getEnergy();
+
 }

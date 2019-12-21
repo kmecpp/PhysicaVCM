@@ -14,4 +14,5 @@ public class ContainerNeutronCaptureChamber extends ContainerBase<TileNeutronCap
 		setSlotCount(TileNeutronCaptureChamber.SLOT_OUTPUT + 1);
 		addDefaultPlayerInventory(player, 0);
 	}
+
 }

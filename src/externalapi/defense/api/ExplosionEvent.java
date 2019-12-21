@@ -19,12 +19,14 @@ public class ExplosionEvent extends Event {
 	 * The explosion object. Can be cast into {@link Explosion}. This event can be
 	 * canceled to prevent a specific part of an explosion from being executed.
 	 */
-	public World		world;
-	public double		x, y, z;
-	public IExplosion	iExplosion;
+	public World world;
+	public double x, y, z;
+	public IExplosion iExplosion;
 
-	/** Pre-cast explosion class. */
-	public Explosion	explosion;
+	/**
+	 * Pre-cast explosion class.
+	 */
+	public Explosion explosion;
 
 	public ExplosionEvent(World world, IExplosion iExplosion) {
 		this.world = world;
@@ -33,8 +35,7 @@ public class ExplosionEvent extends Event {
 		y = ((Explosion) iExplosion).explosionY;
 		z = ((Explosion) iExplosion).explosionZ;
 
-		if (this.iExplosion instanceof Explosion)
-		{
+		if (this.iExplosion instanceof Explosion) {
 			explosion = (Explosion) this.iExplosion;
 		}
 	}
@@ -49,16 +50,26 @@ public class ExplosionEvent extends Event {
 	@Cancelable
 	public static class ExplosivePreDetonationEvent extends Event {
 
-		/** The world object */
-		public World			world;
-		/** The entity causing the explosion. This could be null */
-		public Entity			entity;
-		/** The position in which the explosion might happen. */
-		public double			x, y, z;
-		/** The explosive object. */
-		public IExplosive		explosion;
-		/** The explosive type. */
-		public ExplosiveType	type;
+		/**
+		 * The world object
+		 */
+		public World world;
+		/**
+		 * The entity causing the explosion. This could be null
+		 */
+		public Entity entity;
+		/**
+		 * The position in which the explosion might happen.
+		 */
+		public double x, y, z;
+		/**
+		 * The explosive object.
+		 */
+		public IExplosive explosion;
+		/**
+		 * The explosive type.
+		 */
+		public ExplosiveType type;
 
 		public ExplosivePreDetonationEvent(World world, double x, double y, double z, ExplosiveType type, IExplosive explosion) {
 			this.world = world;
@@ -78,6 +89,7 @@ public class ExplosionEvent extends Event {
 			y = entity.posY;
 			z = entity.posZ;
 		}
+
 	}
 
 	/**
@@ -90,6 +102,7 @@ public class ExplosionEvent extends Event {
 		public ExplosionConstructionEvent(World world, IExplosion explosion) {
 			super(world, explosion);
 		}
+
 	}
 
 	/**
@@ -102,6 +115,7 @@ public class ExplosionEvent extends Event {
 		public PreExplosionEvent(World world, IExplosion explosion) {
 			super(world, explosion);
 		}
+
 	}
 
 	/**
@@ -115,6 +129,7 @@ public class ExplosionEvent extends Event {
 		public DoExplosionEvent(World world, IExplosion explosion) {
 			super(world, explosion);
 		}
+
 	}
 
 	/**
@@ -127,5 +142,7 @@ public class ExplosionEvent extends Event {
 		public PostExplosionEvent(World world, IExplosion explosion) {
 			super(world, explosion);
 		}
+
 	}
+
 }

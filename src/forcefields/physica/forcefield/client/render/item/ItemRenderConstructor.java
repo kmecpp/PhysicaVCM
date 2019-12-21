@@ -1,13 +1,12 @@
 package physica.forcefield.client.render.item;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-import org.lwjgl.util.glu.Sphere;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+import org.lwjgl.util.glu.Sphere;
 import physica.forcefield.PhysicaForcefields;
 import physica.forcefield.client.render.tile.TileRenderFortronBlock;
 import physica.library.client.render.ItemRenderObjModel;
@@ -20,11 +19,9 @@ public class ItemRenderConstructor extends ItemRenderObjModel {
 	}
 
 	@Override
-	public void renderItem(ItemRenderType type, ItemStack item, Object... data)
-	{
+	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
 		super.renderItem(type, item, data);
-		if (type == ItemRenderType.INVENTORY)
-		{
+		if (type == ItemRenderType.INVENTORY) {
 			GL11.glPushMatrix();
 			GL11.glTranslated(0.5D, 0.85D, 0.5D);
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -52,4 +49,5 @@ public class ItemRenderConstructor extends ItemRenderObjModel {
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		}
 	}
+
 }

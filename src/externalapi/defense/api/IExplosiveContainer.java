@@ -13,4 +13,5 @@ public interface IExplosiveContainer {
 	public NBTTagCompound getTagCompound();
 
 	public IExplosive getExplosiveType();
+
 }

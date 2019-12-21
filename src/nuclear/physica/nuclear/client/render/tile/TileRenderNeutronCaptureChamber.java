@@ -1,11 +1,10 @@
 package physica.nuclear.client.render.tile;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.util.ResourceLocation;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 import physica.CoreReferences;
 import physica.library.client.render.TileRenderObjModel;
 import physica.nuclear.NuclearReferences;
@@ -22,27 +21,27 @@ public class TileRenderNeutronCaptureChamber extends TileRenderObjModel<TileNeut
 	}
 
 	@Override
-	public void renderTileAt(TileNeutronCaptureChamber tile, double x, double y, double z, float deltaFrame)
-	{
+	public void renderTileAt(TileNeutronCaptureChamber tile, double x, double y, double z, float deltaFrame) {
 		GL11.glPushMatrix();
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
 		GL11.glTranslated(x + 0.5, y + 0.5, z + 0.5);
 		GL11.glScaled(0.0625, 0.0625, 0.0625);
 		switch (tile.getFacing()) {
-		case NORTH:
-			GL11.glRotatef(-90, 0, 1, 0);
-			break;
-		case SOUTH:
-			GL11.glRotatef(90, 0, 1, 0);
-			break;
-		case EAST:
-			GL11.glRotatef(180, 0, 1, 0);
-			break;
-		default:
-			break;
+			case NORTH:
+				GL11.glRotatef(-90, 0, 1, 0);
+				break;
+			case SOUTH:
+				GL11.glRotatef(90, 0, 1, 0);
+				break;
+			case EAST:
+				GL11.glRotatef(180, 0, 1, 0);
+				break;
+			default:
+				break;
 		}
 		bindTexture(tile.hasDeuterium() ? filled_texture : resourceTexture);
 		wavefrontObject.render();
 		GL11.glPopMatrix();
 	}
+
 }
