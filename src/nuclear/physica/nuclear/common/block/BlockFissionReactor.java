@@ -1,5 +1,6 @@
 package physica.nuclear.common.block;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -63,6 +64,15 @@ public class BlockFissionReactor extends BlockBaseContainerModelled {
 			}
 		}
 		return super.onBlockActivated(world, x, y, z, player, side, xHit, yHit, zHit);
+	}
+
+	@Override
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+		super.onNeighborBlockChange(world, x, y, z, block);
+		TileEntity tile = world.getTileEntity(x, y, z);
+		if (tile instanceof TileFissionReactor) {
+			((TileFissionReactor) tile).setFunctioningPhysics();
+		}
 	}
 
 	@Override

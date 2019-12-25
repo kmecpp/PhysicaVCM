@@ -43,6 +43,7 @@ public class TileFissionReactor extends TileBaseContainer implements IGuiInterfa
 	protected int surroundingWater;
 	private int insertion;
 	boolean isIncased;
+	boolean functioningPhysics;
 
 	@Override
 	public void updateServer(int ticks) {
@@ -58,9 +59,20 @@ public class TileFissionReactor extends TileBaseContainer implements IGuiInterfa
 		if (hasFuelRod() && !isBeingControlled(adjacentBlocks)) {
 			processFuelRod();
 			if (temperature > MELTDOWN_TEMPERATURE + 101 + World().rand.nextInt(5) && hasFuelRod()) {
-				performMeltdown();
+				Block block = this.World().getBlock(this.x(), this.y() - 1, this.z());
+				this.World().notifyBlockOfNeighborChange(this.x(), this.y(), this.z(), block);
+				if (functioningPhysics) {
+					performMeltdown();
+					functioningPhysics = false;
+				} else {
+					temperature /= 1.5;
+				}
 			}
 		}
+	}
+
+	public void setFunctioningPhysics() {
+		functioningPhysics = true;
 	}
 
 	@Override
