@@ -130,6 +130,9 @@ public interface ITileBase extends IPlayerUsing, ISidedObject, IPacketReciever, 
 			PacketTile packetTile = new PacketTile("descSync", DESC_PACKET_ID, This());
 			List<Object> list = new ArrayList<>();
 			writeSynchronizationPacket(list, null);
+			if (list.isEmpty()) {
+				return;
+			}
 			packetTile.addData(list);
 
 			PacketSystem.INSTANCE.sendToAllAround(packetTile, This());
