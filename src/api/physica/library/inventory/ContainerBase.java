@@ -36,7 +36,7 @@ public class ContainerBase<T extends IPlayerUsing> extends Container {
 
 	@Override
 	public void onContainerClosed(EntityPlayer entityplayer) {
-		if (entityplayer.openContainer != this) {
+		if (entityplayer.openContainer == this) {
 			host.removePlayerUsingGui(entityplayer);
 		}
 		super.onContainerClosed(entityplayer);

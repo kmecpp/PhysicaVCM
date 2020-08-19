@@ -33,6 +33,7 @@ sourceSets {
                 "$projectDir/src/forcefields",
                 "$projectDir/src/nuclear"
             ]
+
             include '**/*.java'
         }
 

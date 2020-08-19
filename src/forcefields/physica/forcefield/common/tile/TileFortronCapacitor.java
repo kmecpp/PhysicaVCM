@@ -31,7 +31,7 @@ import java.util.Set;
 
 public class TileFortronCapacitor extends TileBaseContainer implements IInvFortronTile, IGuiInterface {
 
-	public static final int BASE_FORTRON = 1000;
+	public static final int BASE_FORTRON = 10000;
 
 	public static final int SLOT_CARD = 0;
 	public static final int SLOT_MODULE1 = 1;
@@ -49,7 +49,7 @@ public class TileFortronCapacitor extends TileBaseContainer implements IInvFortr
 	}
 
 	public int getFortronTransferRate() {
-		return (int) (BASE_FORTRON + BASE_FORTRON * 10 * Math.pow(1.021, getModuleCount(ForcefieldItemRegister.moduleMap.get("moduleUpgradeSpeed"), SLOT_MODULE1, SLOT_MODULE3))) / 2;
+		return (int) (BASE_FORTRON + BASE_FORTRON * 300 * Math.pow(1.021, getModuleCount(ForcefieldItemRegister.moduleMap.get("moduleUpgradeSpeed"), SLOT_MODULE1, SLOT_MODULE3))) / 2;
 	}
 
 	@Override

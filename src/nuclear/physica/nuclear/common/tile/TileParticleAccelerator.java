@@ -5,10 +5,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.StatCollector;
 import physica.api.core.abstraction.Face;
 import physica.api.core.inventory.IGuiInterface;
 import physica.api.nuclear.IElectromagnet;
@@ -50,6 +54,8 @@ public class TileParticleAccelerator extends TileBasePoweredContainer implements
 			velocity = 0;
 			currentSessionUse = 0;
 		}
+		Entity g;
+		EntityPlayer p;
 	}
 
 	@Override
@@ -84,25 +90,26 @@ public class TileParticleAccelerator extends TileBasePoweredContainer implements
 				currentSessionUse += extractEnergy();
 				if (particle.isDead) {
 					if (particle.didCollide()) {
-						if (stackEmptyCell != null) {
-							if (World().rand.nextFloat() > 0.666f) {
-								antimatterAmount = (int) Math.min(1000, antimatterAmount + (7 + World().rand.nextInt(5)) * (getParticleVelocity() / ConfigNuclearPhysics.ANTIMATTER_CREATION_SPEED));
-								particle.setDead();
-							} else if (antimatterAmount > 100) {
-								decrStackSize(SLOT_INPUTCELLS, 1);
-								antimatterAmount = 0;
-								if (stackOutputSlot != null) {
-									if (stackOutputSlot.getItem() == NuclearItemRegister.itemDarkmatterCell) {
-										stackOutputSlot.stackSize++;
-									}
-								} else if (stackEmptyCell.getItem() == NuclearItemRegister.itemEmptyQuantumCell) {
-									setInventorySlotContents(SLOT_OUTPUT, new ItemStack(NuclearItemRegister.itemDarkmatterCell));
+						float rand = World().rand.nextFloat();
+						System.out.println("RAND: " + rand);
+						if (rand < 0.33f) {
+							double doubleAcceleratorCorrection = getParticleVelocity() / (3 * ConfigNuclearPhysics.ANTIMATTER_CREATION_SPEED);
+							antimatterAmount = (int) Math.min(1000, antimatterAmount + (7 + World().rand.nextInt(5)) * doubleAcceleratorCorrection);
+						}
+						if (rand < 0.01f && stackEmptyCell != null && stackEmptyCell.getItem() == NuclearItemRegister.itemEmptyQuantumCell) {
+							decrStackSize(SLOT_INPUTCELLS, 1);
+							if (stackOutputSlot != null) {
+								if (stackOutputSlot.getItem() == NuclearItemRegister.itemDarkmatterCell) {
+									stackOutputSlot.stackSize++;
 								}
+							} else {
+								setInventorySlotContents(SLOT_OUTPUT, new ItemStack(NuclearItemRegister.itemDarkmatterCell));
 							}
 						}
 					}
 					particle = null;
 				} else if (velocity >= ConfigNuclearPhysics.ANTIMATTER_CREATION_SPEED) {
+					System.out.println("Velocity Greater Than Antimatter Creation Speed");
 					antimatterAmount = Math.min(1000, antimatterAmount + 7 + World().rand.nextInt(5));
 					particle.setDead();
 					particle = null;

@@ -56,6 +56,7 @@ public class TileInterdictionMatrix extends TileBaseContainer implements IInvFor
 	public static final int SLOT_ENDBANLIST = 17;
 	private int frequency;
 	private boolean isOverriden;
+	private int redstoneTicks;
 
 	public int getMaxFortron() {
 		return getFortronUse() * 3 + BASE_FORTRON;
@@ -76,6 +77,10 @@ public class TileInterdictionMatrix extends TileBaseContainer implements IInvFor
 	@Override
 	public int getFrequency() {
 		return frequency;
+	}
+
+	public boolean isEmittingRedstoneSignal() {
+		return redstoneTicks > 0;
 	}
 
 	@Override
@@ -162,6 +167,7 @@ public class TileInterdictionMatrix extends TileBaseContainer implements IInvFor
 			validateConnections();
 		}
 		isActivated = isOverriden ? true : isPoweredByRedstone();
+		redstoneTicks = Math.max(redstoneTicks - 1, 0);
 		if (isActivated() && fortronTank.getFluidAmount() > getFortronUse()) {
 			fortronTank.drain(getFortronUse(), true);
 			@SuppressWarnings("unchecked")
@@ -182,13 +188,10 @@ public class TileInterdictionMatrix extends TileBaseContainer implements IInvFor
 			}
 			if (ticks % 30 == 0) {
 				@SuppressWarnings("unchecked")
-				List<Object> warnBBEntities = World().getEntitiesWithinAABB(EntityLivingBase.class, getActiveWarnBB());
-				for (Object obj : warnBBEntities) {
-					if (obj instanceof EntityPlayer) {
-						EntityPlayer player = (EntityPlayer) obj;
-						if (!isPlayerValidated(player, null)) {
-							player.addChatMessage(new ChatComponentText("Warning! Leave this zone immediately. You have no right to enter."));
-						}
+				List<EntityPlayer> warnBBEntities = World().getEntitiesWithinAABB(EntityPlayer.class, getActiveWarnBB());
+				for (EntityPlayer player : warnBBEntities) {
+					if (!isPlayerValidated(player, null)) {
+						player.addChatMessage(new ChatComponentText("Warning! Leave this zone immediately. You have no right to enter."));
 					}
 				}
 			}
@@ -196,19 +199,29 @@ public class TileInterdictionMatrix extends TileBaseContainer implements IInvFor
 	}
 
 	public void onDefendAntiFriendly(EntityLivingBase living) {
-		if ((!(living instanceof IMob) || living instanceof INpc) && !(living instanceof EntityPlayer)) {
+		if (!living.isDead && (!(living instanceof IMob) || living instanceof INpc) && !(living instanceof EntityPlayer)) {
 			living.attackEntityFrom(DamageSource.magic, 200);
 		}
 	}
 
 	public void onDefendAntiHostile(EntityLivingBase living) {
-		if (living instanceof IMob && !(living instanceof INpc) && !(living instanceof EntityPlayer)) {
+		if (!living.isDead && living instanceof IMob && !(living instanceof INpc) && !(living instanceof EntityPlayer)) {
 			living.attackEntityFrom(DamageSource.magic, 750);
+			redstoneTicks = 20;
+//			this.World().setBlockMetadataWithNotify(this.x(), this.y(), this.z(), j1 + k1, 3);
+			GridLocation location = this.getLocation();
+			for (Face direction : Face.VALID) {
+
+				GridLocation pos = location.OffsetFace(direction);
+				this.World().notifyBlocksOfNeighborChange(pos.getX(), pos.getY(), pos.getZ(), this.blockType);
+			}
+
+			System.out.println("REDSTONE: " + redstoneTicks);
 		}
 	}
 
 	public void onDefendAntiPersonnel(EntityLivingBase living, boolean confiscate) {
-		if (living instanceof EntityPlayer) {
+		if (!living.isDead && living instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) living;
 			if (!isPlayerValidated(player, Permission.BYPASS_INTERDICTION_MATRIX)) {
 				player.addChatMessage(new ChatComponentText("Warning! Leave this zone immediately. You are in the scan zone!"));

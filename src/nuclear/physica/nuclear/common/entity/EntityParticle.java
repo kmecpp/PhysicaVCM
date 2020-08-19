@@ -133,6 +133,8 @@ public class EntityParticle extends Entity implements IEntityAdditionalSpawnData
 					worldObj.spawnParticle("smoke", posX, posY, posZ, motionX, motionY, motionZ);
 				}
 			}
+
+//			System.out.println("Velocity: " + hashCode() + " :: " + ((int) (getTotalVelocity() / ConfigNuclearPhysics.ANTIMATTER_CREATION_SPEED * 100)) + "%");
 			if (isElectromagnet(worldObj, flPosX, flPosY, flPosZ, movementDirection)) {
 				acceleration = turn();
 				motionX = 0;
@@ -147,6 +149,8 @@ public class EntityParticle extends Entity implements IEntityAdditionalSpawnData
 			lastTickPosZ = posZ;
 			moveEntity(motionX, motionY, motionZ);
 			setPosition(posX, posY, posZ);
+//			System.out.println("Velocity: " + hashCode() + " :: " + ((int) (getTotalVelocity() / ConfigNuclearPhysics.ANTIMATTER_CREATION_SPEED * 100)) + "%");
+
 			if (lastTickPosX == posX && lastTickPosY == posY && lastTickPosZ == posZ && getTotalVelocity() <= 0 && ticksExisted > 1) {
 				setDead();
 			}
@@ -192,14 +196,16 @@ public class EntityParticle extends Entity implements IEntityAdditionalSpawnData
 	public double lastCheckX, lastCheckY, lastCheckZ;
 
 	@SuppressWarnings("unchecked")
-	private void onParticleSmash(EntityParticle entityParticle) {
-		int radius = (int) ((getTotalVelocity() + entityParticle.getTotalVelocity()) * 2.5f);
+	private void onParticleSmash(EntityParticle collidedEntity) {
+		int radius = (int) ((getTotalVelocity() + collidedEntity.getTotalVelocity()) * 2.5f);
 		if (!worldObj.isRemote) {
-			entityParticle.setDead();
-			worldObj.createExplosion(this, posX, posY, posZ, ticksExisted > 20 ? (float) (getTotalVelocity() + entityParticle.getTotalVelocity()) * 1.5f : 0, true);
-			if (getTotalVelocity() + entityParticle.getTotalVelocity() > ConfigNuclearPhysics.ANTIMATTER_CREATION_SPEED / 2) {
+			if (getTotalVelocity() + collidedEntity.getTotalVelocity() > ConfigNuclearPhysics.ANTIMATTER_CREATION_SPEED) {
 				didCollide = true;
+				collidedEntity.didCollide = true;
 			}
+			//Do this after so it doesn't mess with velocities
+			collidedEntity.setDead();
+			worldObj.createExplosion(this, posX, posY, posZ, ticksExisted > 20 ? (float) (getTotalVelocity() + collidedEntity.getTotalVelocity()) * 1.5f : 0, true);
 			setDead();
 		}
 

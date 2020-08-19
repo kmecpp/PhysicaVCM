@@ -67,9 +67,11 @@ public class TileMeltedReactor extends TileBase {
 						} else {
 							World().setBlock(x, y, z, Blocks.cobblestone);
 						}
-					} else if (block == Blocks.cobblestone) {
-						World().setBlock(x, y, z, Blocks.lava);
-					} else if (block == Blocks.water || block == Blocks.flowing_water) {
+					}
+//					else if (block == Blocks.cobblestone) {
+//						World().setBlock(x, y, z, Blocks.lava);
+//					}
+					else if (block == Blocks.water || block == Blocks.flowing_water) {
 						World().setBlockToAir(x, y, z);
 					} else if (block == Blocks.sand) {
 						World().setBlock(x, y, z, Blocks.glass);

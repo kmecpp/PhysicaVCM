@@ -32,7 +32,7 @@ import java.util.Set;
 
 public class TileCoercionDriver extends TileBasePoweredContainer implements IInvFortronTile, IGuiInterface {
 
-	public static final int BASE_ENERGY = 700;
+	public static final int BASE_ENERGY = 10000;
 	public static final int SLOT_CARD = 0;
 	public static final int SLOT_MODULE1 = 1;
 	public static final int SLOT_MODULE2 = 2;
@@ -59,7 +59,7 @@ public class TileCoercionDriver extends TileBasePoweredContainer implements IInv
 	}
 
 	public int getFortronTransferRate() {
-		return (int) (BASE_ENERGY + BASE_ENERGY * 10 * Math.pow(1.021, getModuleCount(ForcefieldItemRegister.moduleMap.get("moduleUpgradeSpeed"), SLOT_MODULE1, SLOT_MODULE3))) / 3;
+		return (int) (BASE_ENERGY + BASE_ENERGY * 300 * Math.pow(1.021, getModuleCount(ForcefieldItemRegister.moduleMap.get("moduleUpgradeSpeed"), SLOT_MODULE1, SLOT_MODULE3))) / 3;
 	}
 
 	@Override

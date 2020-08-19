@@ -34,6 +34,18 @@ public abstract class TileBase extends TileEntity implements ITileBase {
 		return location == null ? location = new GridLocation(this) : location.set(super.xCoord, super.yCoord, super.zCoord);
 	}
 
+	public int x() {
+		return super.xCoord;
+	}
+
+	public int y() {
+		return super.yCoord;
+	}
+
+	public int z() {
+		return super.zCoord;
+	}
+
 	public World World() {
 		return getWorldObj();
 	}

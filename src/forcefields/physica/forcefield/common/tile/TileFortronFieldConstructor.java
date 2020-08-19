@@ -1,6 +1,5 @@
 package physica.forcefield.common.tile;
 
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -8,7 +7,6 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -19,7 +17,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraftforge.fluids.FluidTank;
-import physica.CoreReferences;
 import physica.api.core.abstraction.Face;
 import physica.api.core.inventory.IGuiInterface;
 import physica.api.core.misc.IExplosionHandler;
@@ -131,19 +128,19 @@ public class TileFortronFieldConstructor extends TileBaseContainer implements II
 
 	public void damageForcefield(int amount) {
 		int fortronUse = getFortronUse();
-		if (fortronUse == 0) {
-			return;
+		if (fortronUse < 5 || activeFields.size() < maximumForceFieldCount / 1.5) {
+			return; //Blast goes right through the field
 		}
-		double increase = amount / (double) fortronUse * ConfigForcefields.FORCEFIELD_HEALTHLOSS_MODIFIER * 100000;
+		double increase = (amount / (double) fortronUse) * ConfigForcefields.FORCEFIELD_HEALTHLOSS_MODIFIER * 10000;
 		healthLost += increase;
 		if (healthLost >= MAX_HEALTH_LOSS || increase > MAX_HEALTH_LOSS) {
 			destroyField(true);
 			GridLocation loc = getLocation();
 			loc.setBlockAir(World());
-			if (Loader.isModLoaded(CoreReferences.DOMAIN + "nuclearphysics")) {
-				EntityItem antimatter = new EntityItem(World(), loc.xCoord, loc.yCoord, loc.zCoord, new ItemStack(physica.nuclear.common.NuclearItemRegister.itemAntimatterCell1Gram));
-				World().spawnEntityInWorld(antimatter);
-			}
+//			if (Loader.isModLoaded(CoreReferences.DOMAIN + "nuclearphysics")) {
+//				EntityItem antimatter = new EntityItem(World(), loc.xCoord, loc.yCoord, loc.zCoord, new ItemStack(physica.nuclear.common.NuclearItemRegister.itemAntimatterCell1Gram));
+//				World().spawnEntityInWorld(antimatter);
+//			}
 			World().createExplosion(null, loc.xCoord, loc.yCoord, loc.zCoord, 10F, true);
 		}
 	}
@@ -577,6 +574,7 @@ public class TileFortronFieldConstructor extends TileBaseContainer implements II
 	@Override
 	public void readClientGuiPacket(ByteBuf buf, EntityPlayer player) {
 		super.readClientGuiPacket(buf, player);
+
 		isActivated = buf.readBoolean();
 		isCurrentlyConstructing = buf.readBoolean();
 		frequency = buf.readInt();

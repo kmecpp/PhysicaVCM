@@ -55,13 +55,14 @@ public class ForcefieldEventHandler {
 	}
 
 	public ArrayList<TileFortronFieldConstructor> getRelevantConstructors(World world, double x, double y, double z) {
+		forceFieldConstructors.removeIf(TileFortronFieldConstructor::isInvalid);
+
 		ArrayList<TileFortronFieldConstructor> list = new ArrayList<>();
-		Iterator<TileFortronFieldConstructor> iterator = forceFieldConstructors.iterator();
-		while (iterator.hasNext()) {
-			TileFortronFieldConstructor constructor = iterator.next();
-			if (constructor.isInvalid()) {
-				iterator.remove();
-			} else if (constructor.getWorldObj().equals(world)) {
+		for (TileFortronFieldConstructor constructor : forceFieldConstructors) {
+			//			if (constructor.isInvalid()) {
+//				iterator.remove();
+//			} else
+			if (constructor.getWorldObj().equals(world)) {
 				GridLocation loc = constructor.getLocation();
 				double distSquared = Math.pow(loc.xCoord - x, 2) + Math.pow(loc.yCoord - y, 2) + Math.pow(loc.zCoord - z, 2);
 				if (distSquared < 400 * 400) {
@@ -168,8 +169,12 @@ public class ForcefieldEventHandler {
 		if (size > 0 && energy > 0) {
 			for (TileFortronFieldConstructor tile : forceFieldConstructors) {
 				if (tile != null && !tile.isInvalid() && world == tile.getWorldObj()) {
-					double distance = tile.getDistanceFrom(x, y, z);
-					double electricity = Math.min(energy, energy / (distance / size));
+					double distanceSquared = tile.getDistanceFrom(x, y, z);
+					if (distanceSquared > 512 * 512) {
+						continue;
+					}
+					double power = size / distanceSquared;
+					double electricity = energy * power;
 					tile.receiveExplosionEnergy((int) electricity);
 				}
 			}

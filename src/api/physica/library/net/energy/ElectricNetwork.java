@@ -211,7 +211,7 @@ public class ElectricNetwork {
 			for (int countOne = 0; countOne < connectedBlocks.length; countOne++) {
 				TileEntity connectedBlockA = connectedBlocks[countOne];
 				if (connectedBlockA instanceof IConductor && dealtWith[countOne] == false) {
-					NetworkFinder finder = new NetworkFinder(((TileEntity) splitPoint).getWorldObj(), new GridLocation(connectedBlockA), new GridLocation[] {new GridLocation((TileEntity) splitPoint)});
+					NetworkFinder finder = new NetworkFinder(((TileEntity) splitPoint).getWorldObj(), new GridLocation(connectedBlockA), new GridLocation[]{new GridLocation((TileEntity) splitPoint)});
 					List<GridLocation> partNetwork = finder.exploreNetwork();
 					for (int countTwo = countOne + 1; countTwo < connectedBlocks.length; countTwo++) {
 						TileEntity connectedBlockB = connectedBlocks[countTwo];
